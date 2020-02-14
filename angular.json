@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "myt-admin-web-app": {
@@ -24,9 +24,13 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/material-custom-theme.scss",
+              "src/styles.css",
+              "src/myt-style.css"
             ],
-            "scripts": []
+            "scripts": [
+              "src/myt-custom.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -62,7 +66,8 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "myt-admin-web-app:build"
+            "browserTarget": "myt-admin-web-app:build",
+            "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
@@ -119,6 +124,11 @@
           }
         }
       }
-    }},
-  "defaultProject": "myt-admin-web-app"
+    }
+  },
+  "defaultProject": "myt-admin-web-app",
+  "cli": {
+    "analytics": "bc5e021b-1f77-4717-a35d-a06ebfa92d37",
+    "packageManager": "yarn"
+  }
 }

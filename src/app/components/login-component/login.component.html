@@ -1,0 +1,31 @@
+<div class="container">
+    <form (ngSubmit)="adminLogin()" [formGroup]="mytAdminLoginForm" class="form-horizontal">
+        <div class="form-group row">
+            <h4>Please entter your MYT Admin Login Details</h4>
+            <myt-admin-alerts></myt-admin-alerts>
+        </div>
+        <div class="form-group">
+            <label for="username" class="col-lg-4 col-sm-6">Username</label>
+            <input 
+                id="username"
+                type="text" 
+                class="col-lg-4 col-sm-6" 
+                placeholder="Enter username"
+                required>
+        </div>
+        <div class="form-group">
+            <!--<span class="help-block" id="username-error"></span>-->
+            <label for="password" class="col-lg-4 col-sm-6">Password</label>
+            <input 
+                id="password"
+                type="password"
+                class="col-lg-4 col-sm-6" 
+                placeholder="Enter password"
+                required>
+            <!--<span class="help-block" id="password-error"></span>-->
+        </div>	
+        <div class="form-group">
+            <button type="submit" id="loginsubmit" class="btn btn-primary" [disabled]="mytAdminLoginForm.invalid">Login</button>	
+        </div>		
+    </form>
+</div>
