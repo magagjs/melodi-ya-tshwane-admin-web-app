@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
 import { MytAdminService } from "../../services/myt-admin.service";   // API for calling webAPI
 import { LoginRequestInfo } from 'src/app/service-info/login-request-info';
 import { LoginResponseInfo } from 'src/app/service-info/login-response-info';
-import { Router } from '@angular/router';
+import { BrowserStorageService } from 'src/app/services/browser-storage.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'myt-admin-login',
@@ -15,13 +18,13 @@ export class LoginComponent implements OnInit {
   mytAdminLoginForm: FormGroup;     // for form controls
   loginRequest: LoginRequestInfo;   // holds request object for API call
   loginResponse: LoginResponseInfo; // holds response object for API consume
-
-  username: string;
+  username: string;                 // form inputs
   password: string;
-  isAdmin: boolean;
 
   // inject the API service in our constructor to consume login API later
   constructor(private adminService: MytAdminService,
+              private browserStorageService: BrowserStorageService,
+              private authService: AuthService,
               private formBuilder: FormBuilder,
               private router: Router) { 
 
@@ -52,34 +55,36 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { 
     this.loginRequest = new LoginRequestInfo();   // initialize for use as API request call
     this.loginResponse= new LoginResponseInfo();  // initialize for use as API response consume
+
+    // check if user authenticated using authService and forward to home if authenticated
+    if(this.authService.isAuthenticated()){
+      this.router.navigateByUrl('/home');         // forward to home page without signing in
+    }
   }
   
   // onSubmit form function that consumes login API
-  adminLogin(){
+  adminLogin(): void {
     // get the form values and bind to request object
-    //const formValues = this.mytAdminLoginForm.value;
-    this.loginRequest.username = this.mytAdminLoginForm.value.username;
-    this.loginRequest.password = this.mytAdminLoginForm.value.password;
-
-    console.log("Making WS Call...");
-    console.log(""+this.loginRequest.username);
-    console.log(""+this.loginRequest.password);
+    const formValues = this.mytAdminLoginForm.value;
+    this.loginRequest.username = formValues.username;
+    this.loginRequest.password = formValues.password;
 
     // consume login webservice by subscribing to returned Observable and process response
-    this.adminService.processAdminLogin(this.loginRequest)
-      .subscribe( (loginResponseObserable)=> {
-          // assign returned observable to response object
-          this.loginResponse = {...loginResponseObserable};
-          this.mytAdminLoginForm.reset;  // reset form values for cleanup
+    this.adminService.processAdminLogin(this.loginRequest).subscribe( (loginResponseObserable)=> {
+          this.loginResponse = {...loginResponseObserable}; // assign returned observable to response object
+          this.mytAdminLoginForm.reset;                     // reset form input values for cleanup
 
           // forward to admin home page on successful login
-          if(this.loginResponse.loginStatus == "success".toLowerCase() &&
-              this.loginResponse.loginUserFullName.length > 0 &&
-              this.loginResponse.loginErrorMsg.length == 0){
-                this.router.navigateByUrl('admin');
+          if( this.loginResponse.loginStatus == "Success" &&
+              this.loginResponse.loginUserFullName.length > 0 ) {
+                // set login token in session storage key value-used to authenticate users across routes
+                this.browserStorageService.setSessionLoginKey(this.loginResponse.loginToken);
+                // set login user full name in session storage key-used to welcome users by name
+                this.browserStorageService.setSessionUserKey(this.loginResponse.loginUserFullName);
+                this.router.navigateByUrl('/home');         // forward to home page without signing in
               }
         } 
-      )
+      );
   }
 
 }

@@ -1,0 +1,9 @@
+.mat-card-title{
+    font-size:30px;
+}
+
+@media (max-width: 480px){
+    .mat-card-title{
+        font-size:16px;
+    }
+}

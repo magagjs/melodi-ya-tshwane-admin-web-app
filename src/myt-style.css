@@ -1197,9 +1197,9 @@ http://www.tipue.com/search
 	text-decoration: none;
 }
 
-.tipue_search_content_title a:hover{
-	/* 	color: #666; */
-}
+/*.tipue_search_content_title a:hover{
+	 	color: #666; 
+}*/
 
 .tipue_search_content_url{
 	word-wrap: break-word;
@@ -1423,4 +1423,111 @@ Plugins, iFrames and Widgets: Google Calendar iframe CSS
 /* show alert message for file upload */
 .upload-msg-show{
 	display: block;
+}
+
+
+/*======================================================
+Angular Material Component Modifications
+========================================================*/ 
+.home-card-container{
+	padding-top: 5px;
+}
+
+.home-card-container article{
+	margin-bottom: 10px;
+	margin-top: 5px;
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.home-card-container section{
+	padding-left: 0;
+	padding-right: 30px;
+	padding-bottom: 30px;
+}
+
+.home-card-container h1{
+	margin-bottom: 5px;
+}
+
+.home-card-container h2{
+	color: #B8860B;
+}
+
+.home-card-container a{
+	text-decoration: none;
+}
+
+div.home-card-wrapper{
+	padding-left: 0;
+	padding-right: 0;
+}
+
+p.home-card-container-welcome{
+	font-size: 30px;
+	text-align: center;
+}
+
+.mat-card-title{
+	font-size:30px;
+	color: #B8860B;
+}
+
+.mat-card-title:hover{
+	color: #4E505D;
+}
+
+.mat-card-content{
+	text-align: center;
+}
+
+.mat-card-footer{
+	border-top: .5px solid #4E505D;
+	text-align: right;
+	padding-right: 10px;
+}
+
+.mat-card-footer:hover{
+	color: #4E505D;
+}
+
+@media (max-width: 480px){
+	.home-card-container{
+		padding-top: 0;
+	}
+
+	.home-card-container section{
+		padding-left: 0;
+		padding-right: 0px;
+		padding-bottom: 20px;
+	}
+
+	p.home-card-container-welcome{
+		font-size: 20px;
+	}
+
+    .mat-card-title{
+        font-size:16px;
+	}
+	
+	.mat-card-content{
+		font-size:16px;
+	}
+}
+
+.mat-tab-body-content{
+	overflow: hidden;
+}
+
+.events-container .hidden{
+	display: none;
+}
+
+.add-events-container{
+	padding-left: 0;
+}
+
+.add-events-container .form-group{
+	margin-left: 0;
+	margin-right: 0;
 }

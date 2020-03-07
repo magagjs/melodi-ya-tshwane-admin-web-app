@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   mytApiBaseUrl: 'https://mytchurch.co.za/api',
-  mytLoginEndpoint: '/mytAdminLogin.php'
+  mytLoginEndpoint: '/mytAdminLogin.php',
+  mytAddEventsEndpoint: '/mytAdminAddEvents.php',
+  mytEventFileUploadEndpoint: '/mytEventFileUpload.php',
+  http_proxy: 'CORP_PROXY_URL_HERE'   // for npm to bypass corporate proxy
 };
 
 /*

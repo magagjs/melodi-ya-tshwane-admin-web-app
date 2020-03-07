@@ -1,0 +1,92 @@
+<myt-admin-header></myt-admin-header>
+
+<div class="container events-container main-body">
+    <mat-tab-group>
+        <mat-tab label="Add Events"> <!-- ADD Events Tab -->
+            <div class="add-events-container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h1>Add Events</h1>
+                <form (ngSubmit)="addEvents()" [formGroup]="mytAddEventsForm" class="form-horizontal">
+                    <h4>Please enter the MYT Event Details</h4>
+                    <myt-admin-alerts></myt-admin-alerts>
+                    <div>   <!-- Title -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Title of Event</mat-label>
+                            <input 
+                                matInput
+                                formControlName="eventTitle"
+                                placeholder="Enter Event Title"
+                                required>
+                        </mat-form-field>
+                    </div>
+                    <div>   <!-- Owner -->
+                        <mat-form-field appearance="fill" hintLabel="Use drop-down arrow^">
+                            <mat-label>Select Event Owner</mat-label>
+                            <mat-select formControlName="eventOwner"                            >
+                                <mat-option *ngFor="let owner of ownersArray" [value]="owner.value">
+                                    {{owner.viewValue}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div>   <!-- Date -->
+                        <mat-form-field appearance="fill">
+                            <mat-label>Date of Event</mat-label>
+                            <input 
+                                matInput
+                                [matDatepicker]="eventPicker"
+                                placeholder="Choose Event Date"
+                                formControlName="eventDate"
+                                (dateChange)="getDateValue($event)">
+                            <mat-datepicker-toggle matSuffix [for]="eventPicker"></mat-datepicker-toggle>
+                            <mat-datepicker touchUI #eventPicker></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                    <div>   <!-- Add Content Checkbox -->
+                        <mat-checkbox (change)="eventContentSelectedHandler($event)" labelPosition='before'>
+                            Do you want to add event text content?
+                        </mat-checkbox>
+                    </div>
+                    <div>   <!-- Content -->
+                        <mat-form-field appearance="fill" *ngIf="hasEventContent">
+                            <mat-label for="eventContent">Enter Event Content</mat-label>
+                            <textarea 
+                                matInput
+                                formControlName="eventContent"
+                                placeholder="Enter Event Content"
+                                cdkTextareaAutosize
+                                #autosize="cdkTextareaAutosize"
+                                cdkAutosizeMinRows="5"
+                                cdkAutosizeMaxRows="20"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div>   <!-- Add Content Checkbox -->
+                        <mat-checkbox (change)="eventImageSelectedHandler($event)" labelPosition='before'>
+                            Do you want to add event image?
+                        </mat-checkbox>
+                    </div>
+                    <div *ngIf="hasEventImage">  <!-- Image-->
+                        <mat-label for="eventsFile">Upload an image file of 10MB or less in size</mat-label><br>
+                        <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Upload</button><br>
+                        <input class="hidden" name="eventsFile" type="file" #fileInput  (change)="eventFileSelect($event)">
+                    </div>
+                    <div>
+                        <button mat-raised-button color="primary" type="submit" id="eventAddSubmit" 
+                            [disabled]="mytAddEventsForm.invalid">Save
+                        </button>	
+                    </div>		
+                </form>
+            </div>
+        </mat-tab>  <!-- End ADD Events Tab -->
+
+        <mat-tab label="Edit Events">
+        <h1>Edit Events</h1>
+        <p>...</p>
+        </mat-tab>
+        <mat-tab label="Delete Events">
+            <h1>Delete Events</h1>
+            <p>...</p>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+
+<myt-admin-footer></myt-admin-footer>

@@ -1,0 +1,90 @@
+<myt-admin-header></myt-admin-header>
+
+<div class="container home-card-container main-body">
+    <p class="home-card-container-welcome">Welcome {{adminName}}</p>
+    <!-- Manage content container -->
+    <article>
+        <h1>Manage Content</h1>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-card-wrapper">
+            <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a routerLink="/events">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Events</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>Update the MyT Website and App - Add/Remove/Edit Events here.</mat-card-content>
+                        <mat-card-footer>Manage Events</mat-card-footer>
+                    </mat-card>
+                </a>
+            </section>
+            <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a routerLink="/announcements">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Announcements</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>Update the MyT Website and App - Add/Remove/Edit Announcements here.</mat-card-content>
+                        <mat-card-footer>Manage Announcements</mat-card-footer>
+                    </mat-card>
+                </a>
+            </section>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 home-card-wrapper">
+            <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a routerLink="/scriptures">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Scriptures</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>Update the MyT Website and App - Add/Remove/Edit Scriptures here.</mat-card-content>
+                        <mat-card-footer>Manage Scriptures</mat-card-footer>
+                    </mat-card>
+                </a>
+            </section>
+            <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <a routerLink="/banners">
+                    <mat-card>
+                        <mat-card-header>
+                            <mat-card-title>Banners</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>Update the MyT Website and App - Add/Remove/Edit slideshows Images.</mat-card-content>
+                        <mat-card-footer>Manage Banners</mat-card-footer>
+                    </mat-card>
+                </a>
+            </section>
+        </div>
+    </article>
+
+    <!-- Manage admins container-->
+    <article class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <h1>Managed Admins</h1>
+        <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a routerLink="/admin">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>App/Web Admins</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>Add new Webmasters-Add/Remove the permissions of 
+                        existing Web or App Admins.</mat-card-content>
+                    <mat-card-footer>Manage Webmasters</mat-card-footer>
+                </mat-card>
+            </a>
+        </section>
+        <section class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <a routerLink="/admin">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Content Admins</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>Add new Content Creators-Add/Remove the permissions of 
+                        existing Content Creators.</mat-card-content>
+                    <mat-card-footer>Manage Contentmasters</mat-card-footer>
+                </mat-card>
+            </a>
+        </section>
+    </article>
+</div>
+
+<myt-admin-footer></myt-admin-footer>
+
+

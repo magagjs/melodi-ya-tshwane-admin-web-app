@@ -1,7 +1,6 @@
 {
-    "/api/*": {
+    "/api": {
       "target": "https://mytchurch.co.za",
       "secure": true
-    },
-    "logLevel": "debug"
+    }
 }

@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container login-container">
     <form (ngSubmit)="adminLogin()" [formGroup]="mytAdminLoginForm" class="form-horizontal">
         <div class="form-group row">
-            <h4>Please entter your MYT Admin Login Details</h4>
+            <h4>Please enter your MYT Admin Login Details</h4>
             <myt-admin-alerts></myt-admin-alerts>
         </div>
         <div class="form-group">
@@ -11,6 +11,7 @@
                 type="text" 
                 class="col-lg-4 col-sm-6" 
                 placeholder="Enter username"
+                formControlName="username"
                 required>
         </div>
         <div class="form-group">
@@ -21,6 +22,7 @@
                 type="password"
                 class="col-lg-4 col-sm-6" 
                 placeholder="Enter password"
+                formControlName="password"
                 required>
             <!--<span class="help-block" id="password-error"></span>-->
         </div>	

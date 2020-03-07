@@ -1,0 +1,66 @@
+<header>	<!-- Header Section -->
+    <nav class="navbar navbar-default navbar-fixed-top">	<!-- Nav Section -->
+        <div class="container clearfix"> 	<!-- Nav Container -->
+            
+            <!-- Include the navbar branding and toggle menu -->
+            <div>
+                <a class="navbar-brand" routerLink="" aria-labelledby="myt-home-link">
+                    <span class="sr-only">Top Navigation Organisation Logo</span>
+                    <img id="myt-home-link" class="img-responsive" alt="Picture of MyT URCSA logo" 
+                         src="assets/mytLogo53x51.jpeg" />
+                </a>
+            </div>
+            <div class="navbar-header myt-cen-txt">
+                <span class="sr-only">Top Navigation</span>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" 
+                    data-target="#myt-navbar-collapse">
+                        <span class="sr-only">Toggle Top Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="myt-white-font"><b>MENU</b></span>
+                </button>
+            </div>
+                
+            <div class="collapse navbar-collapse" id="myt-navbar-collapse">		<!-- MenuBar Section -->
+                <ul class="nav navbar-nav" role="menubar" itemscope itemtype="http://www.schema.org/SiteNavigationElement">
+                    <li role="menuitem" aria-labelledby="homeLink"><a itemprop="url" routerLink="">
+                        <span itemprop="name" id="homeLink">Home</span></a>
+                    </li>
+                    <li role="menuitem" aria-labelledby="manage-content-link" aria-haspopup="true">
+                        <a itemprop="url" class="dropdown-toggle" data-toggle="dropdown" aria-labelledby="manage-content-link">
+                            <span id="manage-content-link" itemprop="name">Manage Content</span><b class="caret"></b>
+                        </a>   
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="menuitem"><a routerLink="/events" aria-labelledby="events-link">
+                                <span id="events-link">Events</span></a>
+                            </li>
+                            <li role="menuitem"><a routerLink="/announcements" aria-labelledby="announcements-link">
+                                <span id="announcements-link">Announcements</span></a>
+                            </li>										
+                            <li role="menuitem"><a routerLink="/scriptures" aria-labelledby="scriptures-link">
+                                <span id="scriptures-link">Scriptures</span></a>
+                            </li>
+                            <li role="menuitem"><a routerLink="/banners" aria-labelledby="banners-link">
+                                <span id="banners-link">Banners</span></a>
+                            </li>								
+                        </ul>									
+                    </li>										
+                    <li role="menuitem" aria-labelledby="manage-admins-link" aria-haspopup="true">
+                        <a itemprop="url" class="dropdown-toggle" data-toggle="dropdown" aria-labelledby="manage-admins-link">
+                            <span id="manage-admins-link" itemprop="name">Manage Admins</span><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="menuitem"><a routerLink="/web-admins" aria-labelledby="web-admins-link">
+                                <span id="web-admins-link">Announcements</span></a>
+                            </li>
+                            <li role="menuitem"><a routerLink="/content-admins" aria-labelledby="contents-admins-link">
+                                <span id="content-admins-link">Events</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>		<!-- End MenuBar Section -->
+        </div>			<!-- End Nav Container -->
+    </nav>  			<!-- End Nav Section -->
+</header>				<!-- End Header Section -->			

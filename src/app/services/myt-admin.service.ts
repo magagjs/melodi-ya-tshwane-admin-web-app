@@ -1,42 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { LoginRequestInfo } from "../service-info/login-request-info";
 import { LoginResponseInfo } from '../service-info/login-response-info';
 import { environment } from "../../environments/environment";
+import { AddEventRequestInfo, AddEventResponseInfo } from '../service-info';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MytAdminService {
 
-  loginApiBase = environment.mytApiBaseUrl;
+  appApiBase = environment.mytApiBaseUrl;
   loginApiEndpoint = environment.mytLoginEndpoint;
-
-  //======================== CORS to allow Cross-Origin - REMOVE IN PROD? ================================================================
-
-  // include headers in Angular as well as php to allow CORS
-  headerJson = {
-    'Access-Control-Allow-Origin': '*', // ============ PROD: Specify exact/relative domain to allow: DO NOT ALLOW * (ALL)!!! ============
-    'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, X-Requested-With, Content-Type, Accept',
-    'Access-Control-Max-Age': '600',
-    'Content-Type': 'application/json'
-  };
-  headersConfig = new HttpHeaders(this.headerJson);
-  options = {headers: this.headersConfig};
-
-  //======================== CORS to allow Cross-Origin - REMOVE IN PROD? ================================================================
+  addEventsEndpoint = environment.mytAddEventsEndpoint;
 
   constructor(private http: HttpClient) {  }
 
+  optionsJson = {
+    headers: new HttpHeaders().append('Content-Type','application/json')
+  }
+
+  // leave blank for it to work:https://stackoverflow.com/questions/50572363/angular-6-post-request-with-a-multipart-form-doesnt-include-the-attached-file-o
+  optionsFormData = {
+    headers: new HttpHeaders().append('enctype','')
+  }
+
   // function to post login to Web API and get JSON object response into observable
   processAdminLogin( loginInfo: LoginRequestInfo ): Observable<LoginResponseInfo>{
-    return this.http.post<LoginResponseInfo>(this.loginApiBase + this.loginApiEndpoint,loginInfo, this.options)
-    //return this.http.post<LoginResponseInfo>(this.loginApiBase + this.loginApiEndpoint,loginInfo)
+    return this.http.post<LoginResponseInfo>(this.appApiBase + this.loginApiEndpoint,loginInfo)
      // .pipe(catchError(this.handleHttpError));
   }
+
+  // function to post add event data to Web APIs
+  processMytAddEvent( addEventsinfo: AddEventRequestInfo ): Observable<AddEventResponseInfo>{
+    return this.http.post<AddEventResponseInfo>(this.appApiBase + this.addEventsEndpoint,addEventsinfo)
+  };
 
   handleHttpError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
