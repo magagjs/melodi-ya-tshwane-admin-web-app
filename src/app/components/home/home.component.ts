@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BrowserStorageService } from 'src/app/services/browser-storage.service';
+import { BrowserStorageService } from '../../services/browser-storage.service';
 
 @Component({
   selector: 'myt-admin-home',

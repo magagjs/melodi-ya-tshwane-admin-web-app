@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { LoginRequestInfo } from "../service-info/login-request-info";
-import { LoginResponseInfo } from '../service-info/login-response-info';
+import { LoginRequestInfo } from "../models/login-request-info";
+import { LoginResponseInfo } from '../models/login-response-info';
 import { environment } from "../../environments/environment";
-import { AddEventRequestInfo, AddEventResponseInfo } from '../service-info';
+import { AddEventRequestInfo, AddEventResponseInfo } from '../models';
 
 @Injectable({
   providedIn: 'root'

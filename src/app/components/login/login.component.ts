@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { MytAdminService } from "../../services/myt-admin.service";   // API for calling webAPI
-import { LoginRequestInfo } from 'src/app/service-info/login-request-info';
-import { LoginResponseInfo } from 'src/app/service-info/login-response-info';
-import { BrowserStorageService } from 'src/app/services/browser-storage.service';
-import { AuthService } from 'src/app/services/auth.service';
+import { LoginRequestInfo } from '../../models/login-request-info';
+import { LoginResponseInfo } from '../../models/login-response-info';
+import { BrowserStorageService } from '../../services/browser-storage.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'myt-admin-login',

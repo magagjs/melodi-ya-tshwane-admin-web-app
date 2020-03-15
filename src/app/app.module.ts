@@ -30,6 +30,7 @@ import { EventsComponent } from './components/events/events.component';
 import { AnnouncementsComponent } from './components/announcements/announcements.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { PreviewContentComponent } from './components/preview-content/preview-content.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { FooterComponent } from './components/footer/footer.component';
     EventsComponent,
     AnnouncementsComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    PreviewContentComponent
   ],
   imports: [
     BrowserModule,

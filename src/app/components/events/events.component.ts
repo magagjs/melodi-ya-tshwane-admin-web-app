@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import * as _moment from 'moment';  // does not have default export so import * with 'as'
 
-import { MytAdminService } from 'src/app/services/myt-admin.service';
-import { BrowserStorageService } from 'src/app/services/browser-storage.service';
-import { AddEventRequestInfo, AddEventResponseInfo, FileResponseInfo } from 'src/app/service-info';
+import { MytAdminService } from '../../services/myt-admin.service';
+import { BrowserStorageService } from '../../services/browser-storage.service';
+import { AddEventRequestInfo, AddEventResponseInfo, FileResponseInfo } from '../../models';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from "@angular/material/core";
-import { FileUploadService } from 'src/app/services/file-upload.service';
+import { FileUploadService } from '../../services/file-upload.service';
 
 // create the moment object as constant
 const moment = _moment;
@@ -160,6 +160,7 @@ export class EventsComponent implements OnInit {
     // bind session storage admin name and token to request object 
     this.addEventRequest.adminUser = this.browserStorageService.getSessionUserKey();
     this.addEventRequest.adminToken = this.browserStorageService.getSessionLoginKey();
+    // remove backslashes and ellipsis to extract the filename only and prevent ModSecurity errors
     this.addEventRequest.imagePath = this.fileUploadPath;
 
     // get formdata (name/value) of file upload form file input formControl
@@ -192,6 +193,8 @@ export class EventsComponent implements OnInit {
 
               this.router.navigateByUrl('/home');         // forward back to events page on success
         }
+      },err=>{
+        alert(err.message);
       } 
     );
 
