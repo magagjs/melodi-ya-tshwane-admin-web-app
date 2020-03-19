@@ -1,0 +1,4 @@
+article{
+    border-style: solid;
+    white-space: pre-wrap;  /* Allow /n to be used as <br> */
+}

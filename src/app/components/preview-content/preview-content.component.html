@@ -1,1 +1,17 @@
-<p>preview-content works!</p>
+<article class="preview-container" aria-labelledby="preview-post-title">
+    <section aria-labelledby="preview-post-title">
+        <h2 id="preview-post-title"><span *ngIf="eventInfo.owner">{{eventInfo.owner}} </span>
+            {{eventInfo.title}}</h2>
+
+        <div *ngIf="eventInfo.hasContent">
+            <p>
+                {{eventInfo.content}}
+            </p>
+        </div>
+
+        <div *ngIf="eventInfo.hasImage && eventInfo.imagePath">
+            <img class="img-thumbnail img-responsive" src="https://mytchurch.co.za/assets/content/{{eventInfo.imagePath}}"
+                alt="Event Image" width="550" height="550">
+        </div>
+    </section>								
+</article>

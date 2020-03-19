@@ -12,7 +12,7 @@ export class AuthGuardService implements CanActivate{
   // use authService to check if user is logged in-details in authService
   canActivate(): boolean {
     if(!this.authService.isAuthenticated()){
-      this.router.navigate(['']);
+      this.router.navigate([''],{skipLocationChange: true});
       return false;
     }
     return true;

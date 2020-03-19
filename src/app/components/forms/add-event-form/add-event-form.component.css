@@ -1,0 +1,7 @@
+/* Exclude MYT global <h2> style from this component-restore default and customize */
+h2{
+    background-color: inherit;
+    color: inherit;
+    font-weight: 500;
+    text-align: center;
+}

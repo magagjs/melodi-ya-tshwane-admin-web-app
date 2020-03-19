@@ -1,0 +1,70 @@
+<form (ngSubmit)="addEvents()" [formGroup]="mytAddEventsForm" class="form-horizontal">
+    <h2>Enter the MYT Event Details</h2>
+    <myt-admin-alerts></myt-admin-alerts>
+     <!-- Title -->
+    <mat-form-field appearance="fill"> 
+        <mat-label>Enter Event Title</mat-label>
+        <input 
+            matInput
+            formControlName="eventTitle"
+            required>
+    </mat-form-field>
+    <!-- Owner -->
+    <mat-form-field appearance="fill" hintLabel="Use drop-down arrow^"> 
+        <mat-label>Select Event Owner</mat-label>
+        <mat-select formControlName="eventOwner">
+            <mat-option *ngFor="let owner of ownersArray" [value]="owner.value">
+                {{owner.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <!-- Date -->
+    <mat-form-field appearance="fill">  
+        <mat-label>Choose Event Date</mat-label>
+        <input 
+            matInput
+            [matDatepicker]="eventPicker"
+            formControlName="eventDate"
+            (dateChange)="getDateValue($event)">
+        <mat-datepicker-toggle matSuffix [for]="eventPicker"></mat-datepicker-toggle>
+        <mat-datepicker touchUI #eventPicker></mat-datepicker>
+    </mat-form-field>
+    <!-- Content Checkbox -->
+    <mat-checkbox (change)="eventContentSelectedHandler($event)" labelPosition='before'>
+        Do you want to add event text content?
+    </mat-checkbox>
+    <!-- Content: Default=hidden -->
+    <mat-form-field appearance="fill" *ngIf="hasEventContent">
+        <mat-label for="eventContent">Enter Event Content</mat-label>
+        <textarea 
+            matInput
+            formControlName="eventContent"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="5"
+            cdkAutosizeMaxRows="20"></textarea>
+    </mat-form-field>
+    <!-- Image Checkbox -->
+    <mat-checkbox (change)="eventImageSelectedHandler($event)" labelPosition='before'>
+        Do you want to add event image?
+    </mat-checkbox>
+    <!-- Image: Default=hidden -->
+    <div class="file-upload-container" [hidden]="!hasEventImage">  
+        <mat-label for="eventsFile">Upload image file of 10MB or less in size</mat-label><br>
+        <button mat-raised-button color="primary" type="button" (click)="fileInput.click()">Upload</button><br>
+        <input class="hidden" name="eventsFile" type="file" #fileInput  (change)="eventFileSelect($event)">
+    </div>
+
+    <button mat-raised-button color="primary" type="button" (click)="onClickShowPreview()"
+        [disabled]="mytAddEventsForm.invalid">Preview
+    </button>	
+
+    <div *ngIf="showPreview">
+        <p>This is how your event will appear on the MYT website events page</p>
+        <myt-preview-content [eventInfo]="eventInfo"></myt-preview-content>
+    </div>
+    
+    <button mat-raised-button color="primary" type="submit" id="eventAddSubmit" 
+        [disabled]="mytAddEventsForm.invalid">Submit
+    </button>	
+</form>

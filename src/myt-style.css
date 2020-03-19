@@ -1531,3 +1531,36 @@ p.home-card-container-welcome{
 	margin-left: 0;
 	margin-right: 0;
 }
+
+/* Form fields must fill entire div and in own new-line (block) */
+.login-container .mat-form-field,
+.events-container .mat-form-field{
+	display: block;
+}
+
+/* Form checkboxes must fill entire div and in own new-line (block) */
+.events-container .mat-checkbox {
+	display: block;
+}
+
+/* Horizontally space out mat-raised-button on all devices: 
+   Makes space when buttons are horizantally aligned */
+.login-container .mat-raised-button,
+.events-container .mat-raised-button{
+	margin-right: 20px;	
+	margin-bottom: 20px;
+}
+
+/* diplay in new line and not inline with others */
+.login-container .mat-raised-button{
+	display: inline-block;	
+}
+
+/* Display spinner inline with other divs or elements */
+.progress-spinner-container {
+	display: inline-block;	
+}
+
+.preview-container {
+	margin-bottom: 20px;
+}

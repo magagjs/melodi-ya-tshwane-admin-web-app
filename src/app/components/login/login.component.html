@@ -1,33 +1,32 @@
 <div class="container login-container">
+    <img class="img-responsive center-block" alt="Picture of MyT URCSA logo" src="assets/mytLogo53x51.jpeg"/>
+    <h1>MYT Admin Login</h1>
     <form (ngSubmit)="adminLogin()" [formGroup]="mytAdminLoginForm" class="form-horizontal">
         <div class="form-group row">
-            <h4>Please enter your MYT Admin Login Details</h4>
             <myt-admin-alerts></myt-admin-alerts>
         </div>
-        <div class="form-group">
-            <label for="username" class="col-lg-4 col-sm-6">Username</label>
+        <mat-form-field appearance="fill">
+            <mat-label for="username">Enter Username</mat-label>
             <input 
+                matInput
                 id="username"
                 type="text" 
-                class="col-lg-4 col-sm-6" 
-                placeholder="Enter username"
                 formControlName="username"
                 required>
-        </div>
-        <div class="form-group">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
             <!--<span class="help-block" id="username-error"></span>-->
-            <label for="password" class="col-lg-4 col-sm-6">Password</label>
+            <mat-label for="password">Enter password</mat-label>
             <input 
+                matInput
                 id="password"
                 type="password"
-                class="col-lg-4 col-sm-6" 
-                placeholder="Enter password"
                 formControlName="password"
                 required>
             <!--<span class="help-block" id="password-error"></span>-->
-        </div>	
-        <div class="form-group">
-            <button type="submit" id="loginsubmit" class="btn btn-primary" [disabled]="mytAdminLoginForm.invalid">Login</button>	
-        </div>		
+        </mat-form-field>	
+        <button mat-raised-button color="primary" type="submit" id="loginsubmit" 
+            [disabled]="mytAdminLoginForm.invalid">Login</button>	
+        <myt-progress-loader></myt-progress-loader>	
     </form>
 </div>

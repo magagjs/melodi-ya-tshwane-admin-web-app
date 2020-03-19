@@ -1,0 +1,26 @@
+/* Exclude MYT global <h1> style from this component-restore default and customize */
+h1{
+    background-color: inherit;
+    color: inherit;
+    font-weight: 600;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.login-container{
+    margin-top: 8px;  
+}
+
+/* align login to center of screen for large/medium devices with minimum width 600px */
+@media (min-width: 600px){
+    .login-container{
+        max-width: 600px;   
+    }
+}
+
+/* all other devices with minimum width <600px - align login to fit width of screen */
+@media (max-width: 599px){
+    .login-container{
+        max-width: 100%;   /* for small devices with width lower than 600px */
+    }
+}
