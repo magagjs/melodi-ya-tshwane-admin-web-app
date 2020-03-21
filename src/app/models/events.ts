@@ -1,4 +1,4 @@
-export class EventsInfo {
+export class Events {
     
     constructor(
         public title:string,

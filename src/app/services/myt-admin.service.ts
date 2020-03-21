@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
-import { LoginRequestInfo } from "../models/login-request-info";
-import { LoginResponseInfo } from '../models/login-response-info';
+import { LoginRequest } from "../models/login-request";
+import { LoginResponse } from "../models/login-response";
 import { environment } from "../../environments/environment";
 import { AddEventRequestInfo, AddEventResponseInfo } from '../models';
 
@@ -15,6 +15,7 @@ export class MytAdminService {
   appApiBase = environment.mytApiBaseUrl;
   loginApiEndpoint = environment.mytLoginEndpoint;
   addEventsEndpoint = environment.mytAddEventsEndpoint;
+  listContentsEndpoint = environment.mytListContentsEndpoint;
 
   constructor(private http: HttpClient) {  }
 
@@ -28,8 +29,8 @@ export class MytAdminService {
   }
 
   // function to post login to Web API and get JSON object response into observable
-  processAdminLogin( loginInfo: LoginRequestInfo ): Observable<LoginResponseInfo>{
-    return this.http.post<LoginResponseInfo>(this.appApiBase + this.loginApiEndpoint,loginInfo)
+  processAdminLogin( loginInfo: LoginRequest ): Observable<LoginResponse>{
+    return this.http.post<LoginResponse>(this.appApiBase + this.loginApiEndpoint,loginInfo)
      // .pipe(catchError(this.handleHttpError));
   }
 
@@ -37,6 +38,11 @@ export class MytAdminService {
   processMytAddEvent( addEventsinfo: AddEventRequestInfo ): Observable<AddEventResponseInfo>{
     return this.http.post<AddEventResponseInfo>(this.appApiBase + this.addEventsEndpoint,addEventsinfo)
   };
+
+  // function to get a list of Items based on content type to be determine by parameter
+  processMytListContents( contentType: string ): Observable<any> {
+    return this.http.post<any>(this.appApiBase + this.listContentsEndpoint, contentType);
+  }
 
   handleHttpError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';

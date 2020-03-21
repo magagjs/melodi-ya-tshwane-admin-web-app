@@ -8,6 +8,7 @@ export const environment = {
   mytLoginEndpoint: '/mytAdminLogin.php',
   mytAddEventsEndpoint: '/mytAdminAddEvents.php',
   mytEventFileUploadEndpoint: '/mytEventFileUpload.php',
+  mytListContentsEndpoint: '/mytAdminListContents.php',
   http_proxy: 'CORP_PROXY_URL_HERE'   // for npm to bypass corporate proxy
 };
 

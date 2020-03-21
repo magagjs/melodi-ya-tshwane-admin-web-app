@@ -18,6 +18,7 @@ import { MatDatepickerModule } from "@angular/material/datepicker"; // used with
 import { MatButtonModule } from "@angular/material/button";
 import { MatSelectModule } from "@angular/material/select";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatListModule } from "@angular/material/list";
 
 // custom dev components
 import { LoginComponent } from './components/login/login.component';
@@ -33,7 +34,8 @@ import { PreviewContentComponent } from './components/preview-content/preview-co
 import { AddEventFormComponent } from './components/forms/add-event-form/add-event-form.component';
 import { ProgressLoaderComponent } from './components/progress-loader/progress-loader.component';
 import { ProgressLoaderService } from "./services/progress-loader.service"; // determine http call progress for UI
-import { ProgressLoaderInterceptor } from "./interceptors/progress-loader-interceptor";  // intercept http calls to determine progress for UI
+import { ProgressLoaderInterceptor } from "./interceptors/progress-loader-interceptor";
+import { EditEventFormComponent } from './components/forms/edit-event-form/edit-event-form.component';  // intercept http calls to determine progress for UI
 
 @NgModule({
   declarations: [
@@ -49,7 +51,8 @@ import { ProgressLoaderInterceptor } from "./interceptors/progress-loader-interc
     FooterComponent,
     PreviewContentComponent,
     AddEventFormComponent,
-    ProgressLoaderComponent
+    ProgressLoaderComponent,
+    EditEventFormComponent
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,7 @@ import { ProgressLoaderInterceptor } from "./interceptors/progress-loader-interc
     MatDatepickerModule,
     MatButtonModule,
     MatProgressSpinnerModule,
+    MatListModule,
     FormsModule, 
     ReactiveFormsModule,
     AppRoutingModule,

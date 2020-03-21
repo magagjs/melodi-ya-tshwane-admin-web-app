@@ -11,9 +11,9 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { MytAdminService } from '../../../services/myt-admin.service';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
-import { AddEventRequestInfo, AddEventResponseInfo, FileResponseInfo } from '../../../models';
+import { AddEventRequestInfo, AddEventResponseInfo, FileResponse } from '../../../models';
 import { FileUploadService } from '../../../services/file-upload.service';
-import { EventsInfo } from '../../../models/events-info';
+import { Events } from '../../../models/events';
 
 
 
@@ -52,7 +52,7 @@ export class AddEventFormComponent implements OnInit {
 
   addEventRequest: AddEventRequestInfo;   // request object for events API call
   addEventResponse: AddEventResponseInfo; // response object for events API consume
-  fileUploadResponse: FileResponseInfo;   // response object for file API consume
+  fileUploadResponse: FileResponse;   // response object for file API consume
   mytAddEventsForm: FormGroup;            // for form controls
   hasEventContent: boolean = false;       // toggle display of context input textarea
   hasEventImage: boolean = false;         // toggle display of image input file upload
@@ -60,7 +60,7 @@ export class AddEventFormComponent implements OnInit {
   ownerSelectValue: string;               // value from owner drop-down
   fileUploadPath: string = "";            // path of file on server after upload
   //uploadedFile: File;
-  eventInfo:EventsInfo;                   // Input into Preview-Content component
+  events:Events;                          // Input into Preview-Content component
   showPreview:boolean=false;              // flag to determine whether to show preview or not
 
   // event owners array-modify this to add more ministries, etc
@@ -164,8 +164,8 @@ export class AddEventFormComponent implements OnInit {
       eventContent = "No Content was added with this Event!!";
     }
 
-    // initialize eventInfo model to Input in preview-content components for pre-submission event preview 
-    this.eventInfo = new EventsInfo(
+    // initialize events model to Input in preview-content components for pre-submission event preview 
+    this.events = new Events(
       this.mytAddEventsForm.value.eventTitle,
       this.mytAddEventsForm.value.eventOwner,
       this.datePickerValue,
@@ -199,22 +199,6 @@ export class AddEventFormComponent implements OnInit {
     this.addEventRequest.adminToken = this.browserStorageService.getSessionLoginKey();
     // remove backslashes and ellipsis to extract the filename only and prevent ModSecurity errors
     this.addEventRequest.imagePath = this.fileUploadPath;
-
-    // get formdata (name/value) of file upload form file input formControl
-    //const eventsFormData = new FormData();
-    //eventsFormData.append('addEventRequest', JSON.stringify(this.addEventRequest));
-    //fileUploadFormData.append('eventsFile', this.uploadedFile); // get key/value form data
-    //fileUploadFormData.append('addEventRequest', JSON.stringify(this.addEventRequest));
-
-    console.log("Title: " + this.addEventRequest.title);
-    console.log("Owner: " + this.addEventRequest.owner);
-    console.log("Date: " + this.addEventRequest.date);
-    console.log("Content: " + this.addEventRequest.content);
-    console.log("HasContent: " + this.addEventRequest.hasContent);
-    console.log("HasImage: " + this.addEventRequest.hasImage);
-    console.log("AdminUser: " + this.addEventRequest.adminUser);
-    console.log("AdminToken: " + this.addEventRequest.adminToken);
-    console.log("FileUploadPath: " + this.fileUploadPath);
 
     // consume add events webservice by subscribing to returned Observable and process response
     /*this.adminService.processMytAddEvent(this.addEventRequest).subscribe( (addEventResponseObserable)=> {

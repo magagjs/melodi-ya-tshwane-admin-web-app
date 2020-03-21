@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { EventsInfo } from '../../models/events-info';
+import { Events } from '../../models/events';
 
 @Component({
   selector: 'myt-preview-content',
@@ -8,7 +8,7 @@ import { EventsInfo } from '../../models/events-info';
 })
 export class PreviewContentComponent implements OnInit {
   // Accept Event model object as in Input in order to display in UI
-  @Input() public eventInfo: EventsInfo;
+  @Input() public eventInfo: Events;
   constructor() { }
 
   ngOnInit(): void {

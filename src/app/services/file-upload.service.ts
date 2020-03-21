@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpRequest } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { environment } from "../../environments/environment";
-import { FileRequestInfo } from "../models/file-request-info";
-import { FileResponseInfo } from "../models/file-response-info";
+import { FileResponse } from "../models/file-response";
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +19,8 @@ export class FileUploadService {
     headers: new HttpHeaders().append('enctype','')
   }
 
-  processUploadEventFile(fileFormData: FormData): Observable<FileResponseInfo>{
-    return this.http.post<FileResponseInfo>(this.appApiBase + this.eventFileUploadEndpoint,fileFormData)
+  processUploadEventFile(fileFormData: FormData): Observable<FileResponse>{
+    return this.http.post<FileResponse>(this.appApiBase + this.eventFileUploadEndpoint,fileFormData)
   };
 
 }

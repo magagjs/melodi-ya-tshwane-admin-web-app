@@ -2,9 +2,7 @@
     <img class="img-responsive center-block" alt="Picture of MyT URCSA logo" src="assets/mytLogo53x51.jpeg"/>
     <h1>MYT Admin Login</h1>
     <form (ngSubmit)="adminLogin()" [formGroup]="mytAdminLoginForm" class="form-horizontal">
-        <div class="form-group row">
-            <myt-admin-alerts></myt-admin-alerts>
-        </div>
+        <div class="alert alert-danger" [hidden]="!isLoginInValid"><p>{{loginError}}</p></div>
         <mat-form-field appearance="fill">
             <mat-label for="username">Enter Username</mat-label>
             <input 
@@ -15,7 +13,6 @@
                 required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-            <!--<span class="help-block" id="username-error"></span>-->
             <mat-label for="password">Enter password</mat-label>
             <input 
                 matInput
@@ -23,10 +20,11 @@
                 type="password"
                 formControlName="password"
                 required>
-            <!--<span class="help-block" id="password-error"></span>-->
         </mat-form-field>	
-        <button mat-raised-button color="primary" type="submit" id="loginsubmit" 
-            [disabled]="mytAdminLoginForm.invalid">Login</button>	
+        <div [hidden]="isSubmitBtnHide">
+            <button mat-raised-button color="primary" type="submit" id="loginsubmit"
+                (click)="onClickSubmitBtnHide()" [disabled]="mytAdminLoginForm.invalid">Login</button>	
+        </div>
         <myt-progress-loader></myt-progress-loader>	
     </form>
 </div>

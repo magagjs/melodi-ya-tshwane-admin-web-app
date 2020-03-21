@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { MytAdminService } from "../../services/myt-admin.service";   // API for calling webAPI
-import { LoginRequestInfo } from '../../models/login-request-info';
-import { LoginResponseInfo } from '../../models/login-response-info';
+import { LoginRequest } from '../../models/login-request';
+import { LoginResponse } from '../../models/login-response';
 import { BrowserStorageService } from '../../services/browser-storage.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -16,10 +16,13 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   mytAdminLoginForm: FormGroup;     // for form controls
-  loginRequest: LoginRequestInfo;   // holds request object for API call
-  loginResponse: LoginResponseInfo; // holds response object for API consume
+  loginRequest: LoginRequest;   // holds request object for API call
+  loginResponse: LoginResponse; // holds response object for API consume
   username: string;                 // form inputs
   password: string;
+  isSubmitBtnHide:boolean=false;    // flag to hide sumbit button
+  isLoginInValid:boolean=false;     // flag for valid login
+  loginError:string;                // login err message for invalid login
 
   // inject the API service in our constructor to consume login API later
   constructor(private adminService: MytAdminService,
@@ -53,8 +56,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void { 
-    this.loginRequest = new LoginRequestInfo();   // initialize for use as API request call
-    this.loginResponse= new LoginResponseInfo();  // initialize for use as API response consume
+    this.loginRequest = new LoginRequest();   // initialize for use as API request call
+    this.loginResponse= new LoginResponse();  // initialize for use as API response consume
 
     // check if user authenticated using authService and forward to home if authenticated
     if(this.authService.isAuthenticated()){
@@ -62,6 +65,11 @@ export class LoginComponent implements OnInit {
     }
   }
   
+  // hide the submit onClick
+  onClickSubmitBtnHide():void{
+    this.isSubmitBtnHide = true;
+  }
+
   // onSubmit form function that consumes login API
   adminLogin(): void {
     // get the form values and bind to request object
@@ -81,8 +89,14 @@ export class LoginComponent implements OnInit {
                 this.browserStorageService.setSessionLoginKey(this.loginResponse.loginToken);
                 // set login user full name in session storage key-used to welcome users by name
                 this.browserStorageService.setSessionUserKey(this.loginResponse.loginUserFullName);
-                this.router.navigateByUrl('/home');         // forward to home page without signing in
-              }
+                this.isLoginInValid = false;        // make login valid for form input control
+                this.router.navigateByUrl('/home'); // forward to home page without signing in
+          }else{
+            this.isLoginInValid = true;   // flag to display alert
+            this.loginError = 
+              "Invalid username or password! Contact MYT Webmaster if you forgot your username/password"; 
+            this.isSubmitBtnHide = false; // dont hide submit button
+          }
         } 
       );
   }

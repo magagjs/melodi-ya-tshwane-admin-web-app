@@ -1,4 +1,4 @@
-export class LoginResponseInfo {
+export class LoginResponse {
     loginUserFullName: string;
     loginStatus: string;
     loginErrorMsg: string;
