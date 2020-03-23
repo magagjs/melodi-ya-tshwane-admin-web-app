@@ -11,11 +11,8 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 
 import { MytAdminService } from '../../../services/myt-admin.service';
 import { BrowserStorageService } from '../../../services/browser-storage.service';
-import { AddEventRequestInfo, AddEventResponseInfo, FileResponse } from '../../../models';
+import { Events, EventsHttpResponse, FileResponse } from '../../../models';
 import { FileUploadService } from '../../../services/file-upload.service';
-import { Events } from '../../../models/events';
-
-
 
 // create the moment object as constant
 const moment = _moment;
@@ -50,18 +47,16 @@ interface EventOwners{
 })
 export class AddEventFormComponent implements OnInit {
 
-  addEventRequest: AddEventRequestInfo;   // request object for events API call
-  addEventResponse: AddEventResponseInfo; // response object for events API consume
-  fileUploadResponse: FileResponse;   // response object for file API consume
-  mytAddEventsForm: FormGroup;            // for form controls
-  hasEventContent: boolean = false;       // toggle display of context input textarea
-  hasEventImage: boolean = false;         // toggle display of image input file upload
-  datePickerValue: any;                   // value from datePicker from form
-  ownerSelectValue: string;               // value from owner drop-down
-  fileUploadPath: string = "";            // path of file on server after upload
-  //uploadedFile: File;
-  events:Events;                          // Input into Preview-Content component
-  showPreview:boolean=false;              // flag to determine whether to show preview or not
+  events: Events;                       // request object for events API call
+  addEventResponse: EventsHttpResponse; // response object for events API consume
+  fileUploadResponse: FileResponse;     // response object for file API consume
+  mytAddEventsForm: FormGroup;          // for form controls
+  hasEventContent: boolean = false;     // toggle display of context input textarea
+  hasEventImage: boolean = false;       // toggle display of image input file upload
+  datePickerValue: any;                 // value from datePicker from form
+  ownerSelectValue: string;             // value from owner drop-down
+  fileUploadPath: string = "";          // path of file on server after upload
+  showPreview:boolean=false;            // flag to determine whether to show preview or not
 
   // event owners array-modify this to add more ministries, etc
   ownersArray: EventOwners[] = [
@@ -102,8 +97,7 @@ export class AddEventFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addEventRequest = new AddEventRequestInfo();     // initialize for use in API request call
-    this.addEventResponse = new AddEventResponseInfo();   // initialize for use in API response consume
+    this.addEventResponse = new EventsHttpResponse();   // initialize for use in API response consume
   }
 
   eventContentSelectedHandler(event: MatCheckboxChange): void{
@@ -130,20 +124,19 @@ export class AddEventFormComponent implements OnInit {
   // https://www.techiediaries.com/php-file-upload-tutorial/
   eventFileSelect(event): void{
     if(event.target.files.length > 0){
-      const file = event.target.files[0];                     // get a single file from file upload array
+      const file = event.target.files[0];    // get a single file from file upload array
       const fileFormData = new FormData();
-      //this.mytAddEventsForm.get('eventsFile').setValue(file); // set uploaded file to eventsFile attrib
-      //this.mytAddEventsForm.get('eventsFile').value // form data to assign file for upload
-      //this.uploadedFile = file;
       fileFormData.append('eventsFile', file);
 
       // call service to upload file to server
-      this.fileUploadService.processUploadEventFile(fileFormData).subscribe( (fileUploadResponseObservable)=> {
-        this.fileUploadResponse = {...fileUploadResponseObservable};  // assign returned observable to response object
-
-        if(this.fileUploadResponse.filePath.length > 0) {
-          this.fileUploadPath = this.fileUploadResponse.filePath;     // assign file directory from response object
-        }
+      this.fileUploadService.processUploadEventFile(fileFormData)
+          .subscribe( (fileUploadResponseObservable)=> {
+            // assign returned observable to response object
+            this.fileUploadResponse = {...fileUploadResponseObservable};
+            // assign file directory from response object
+            if(this.fileUploadResponse.filePath.length > 0) {
+              this.fileUploadPath = this.fileUploadResponse.filePath;     
+            }
 
       });
     }
@@ -166,13 +159,17 @@ export class AddEventFormComponent implements OnInit {
 
     // initialize events model to Input in preview-content components for pre-submission event preview 
     this.events = new Events(
+      null,
       this.mytAddEventsForm.value.eventTitle,
       this.mytAddEventsForm.value.eventOwner,
       this.datePickerValue,
       eventContent,
       this.hasEventContent,
       this.hasEventImage,
-      this.fileUploadPath
+      this.fileUploadPath,
+      null,
+      null,
+      null
     );
 
     this.showPreview = true;  // show preview div onClick 'Preview' button
@@ -182,26 +179,23 @@ export class AddEventFormComponent implements OnInit {
   addEvents(): void {
     // bind form values to request object 
     const formValues = this.mytAddEventsForm.value;
-    this.addEventRequest.title = formValues.eventTitle;
-    this.addEventRequest.owner = formValues.eventOwner;
-    // only add form content on checking hasContent flag
-    if(this.hasEventContent){
-      this.addEventRequest.content = formValues.eventContent;
+
+    this.events.event_title = formValues.eventTitle;
+    this.events.event_owner = formValues.eventOwner;
+    this.events.event_date = this.datePickerValue;
+    if(this.hasEventContent){     // only add form content on checking hasContent flag
+      this.events.event_content = formValues.eventContent;
     }else{
-      this.addEventRequest.content = "No Content was added with this Event!!";
+      this.events.event_content = "No Content was added with this Event!!";
     }
-    this.addEventRequest.date = this.datePickerValue;
-    // bind flags for content and image to request object
-    this.addEventRequest.hasContent = this.hasEventContent;
-    this.addEventRequest.hasImage = this.hasEventImage;
-    // bind session storage admin name and token to request object 
-    this.addEventRequest.adminUser = this.browserStorageService.getSessionUserKey();
-    this.addEventRequest.adminToken = this.browserStorageService.getSessionLoginKey();
-    // remove backslashes and ellipsis to extract the filename only and prevent ModSecurity errors
-    this.addEventRequest.imagePath = this.fileUploadPath;
+    this.events.event_has_content = this.hasEventContent;
+    this.events.event_has_image = this.hasEventImage;
+    this.events.event_image_dir = this.fileUploadPath;
+    this.events.event_added_by_user = this.browserStorageService.getSessionUserKey();
+    this.events.event_added_by_token = this.browserStorageService.getSessionLoginKey();
 
     // consume add events webservice by subscribing to returned Observable and process response
-    /*this.adminService.processMytAddEvent(this.addEventRequest).subscribe( (addEventResponseObserable)=> {
+    /*this.adminService.processMytAddEvent(this.events).subscribe( (addEventResponseObserable)=> {
         this.addEventResponse = {...addEventResponseObserable}; // assign returned observable to response object
         this.mytAddEventsForm.reset;                            // reset form input values for cleanup
 

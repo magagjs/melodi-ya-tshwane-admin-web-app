@@ -8,12 +8,12 @@ import { Events } from '../../models/events';
 })
 export class PreviewContentComponent implements OnInit {
   // Accept Event model object as in Input in order to display in UI
-  @Input() public eventInfo: Events;
+  @Input() public events: Events;
   constructor() { }
 
   ngOnInit(): void {
     console.log("Event Info Input:");
-    console.log(this.eventInfo);
+    console.log(this.events);
   }
 
 }

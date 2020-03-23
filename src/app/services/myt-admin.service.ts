@@ -5,7 +5,7 @@ import { catchError } from "rxjs/operators";
 import { LoginRequest } from "../models/login-request";
 import { LoginResponse } from "../models/login-response";
 import { environment } from "../../environments/environment";
-import { AddEventRequestInfo, AddEventResponseInfo } from '../models';
+import { Events, EventsHttpResponse, ContentsHttpRequest } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -35,13 +35,13 @@ export class MytAdminService {
   }
 
   // function to post add event data to Web APIs
-  processMytAddEvent( addEventsinfo: AddEventRequestInfo ): Observable<AddEventResponseInfo>{
-    return this.http.post<AddEventResponseInfo>(this.appApiBase + this.addEventsEndpoint,addEventsinfo)
+  processMytAddEvent( events: Events ): Observable<EventsHttpResponse>{
+    return this.http.post<EventsHttpResponse>(this.appApiBase + this.addEventsEndpoint,events)
   };
 
   // function to get a list of Items based on content type to be determine by parameter
-  processMytListContents( contentType: string ): Observable<any> {
-    return this.http.post<any>(this.appApiBase + this.listContentsEndpoint, contentType);
+  processMytListContents( contentRequest:ContentsHttpRequest ): Observable<Events[]> {
+    return this.http.post<Events[]>(this.appApiBase + this.listContentsEndpoint, contentRequest);
   }
 
   handleHttpError(error: HttpErrorResponse) {

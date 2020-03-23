@@ -1,17 +1,17 @@
 <article class="preview-container" aria-labelledby="preview-post-title">
     <section aria-labelledby="preview-post-title">
-        <h2 id="preview-post-title"><span *ngIf="eventInfo.owner">{{eventInfo.owner}} </span>
-            {{eventInfo.title}}</h2>
+        <h2 id="preview-post-title"><span *ngIf="events.event_owner">{{events.event_owner}} </span>
+            {{events.event_title}}</h2>
 
-        <div *ngIf="eventInfo.hasContent">
+        <div *ngIf="events.event_has_content">
             <p>
-                {{eventInfo.content}}
+                {{events.event_content}}
             </p>
         </div>
 
-        <div *ngIf="eventInfo.hasImage && eventInfo.imagePath">
-            <img class="img-thumbnail img-responsive" src="https://mytchurch.co.za/assets/content/{{eventInfo.imagePath}}"
-                alt="Event Image" width="550" height="550">
+        <div *ngIf="events.event_has_image && events.event_image_dir">
+            <img class="img-thumbnail img-responsive" alt="Event Image" width="550" height="550"
+                src="https://mytchurch.co.za/assets/content/{{events.event_image_dir}}">
         </div>
     </section>								
 </article>
